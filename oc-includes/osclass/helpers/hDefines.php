@@ -910,6 +910,15 @@
         }
     }
 
+    function osc_get_regions_from_country($country = '') {
+        if($country=='') {
+            return Region::newInstance()->listAll();
+        } else {
+            return Region::newInstance()->findByCountry($country);
+        }
+    }
+
+
     /**
      * Gets list of cities (from a region)
      *

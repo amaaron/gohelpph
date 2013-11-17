@@ -510,7 +510,7 @@
             return true;
         }
 
-        static public function region_select($regions = null, $item = null) {
+        static public function region_select($regions = null, $item = null, $itemid='regionId') {
 
             if($item==null) { $item = osc_item(); };
 
@@ -524,7 +524,7 @@
                 if( Session::newInstance()->_getForm('regionId') != "" ) {
                     $item['fk_i_region_id'] = Session::newInstance()->_getForm('regionId');
                 }
-                parent::generic_select('regionId', $regions, 'pk_i_id', 's_name', __('Select a region...'), (isset($item['fk_i_region_id'])) ? $item['fk_i_region_id'] : null);
+                parent::generic_select($itemid, $regions, 'pk_i_id', 's_name', __('Select a region...'), (isset($item['fk_i_region_id'])) ? $item['fk_i_region_id'] : null);
                 return true;
             } else {
                 if( Session::newInstance()->_getForm('region') != "" ) {
@@ -643,15 +643,50 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
+    var country_regions = new Object();
+    var region_array;
+    <?php
+    $countries = osc_get_countries();
+    foreach ($countries as $country)
+    {
+        //print_r($country);
+        $regionid = $country['pk_c_code'];
+        $selectid = "regionId_$regionid";
+        $regions = osc_get_regions_from_country($regionid);
+
+        //print_r($regions);
+        $r = 0;
+        print "region_array = new Array();\n";
+        foreach ($regions as $region)
+        {
+          $regionname = $region['s_name'];
+          print "region_array[$r] = \"$regionname\";\n";
+          $r++;
+        }
+        print "country_regions.$regionid = region_array;\n";
+    }
+    ?>
+        $('#regionId').empty();
         $('#countryName').attr( "autocomplete", "off" );
         $('#region').attr( "autocomplete", "off" );
         $('#city').attr( "autocomplete", "off" );
 
         $('#countryId').change(function(){
-            $('#regionId').val('');
-            $('#region').val('');
+            var cid = $('#countryId').val();
+
             $('#cityId').val('');
             $('#city').val('');
+
+            var this_country_regions = country_regions[cid];
+            
+            var $regid = $('#regionId');
+            $regid.empty();
+            $regid.append($("<option></option>").attr("value", "").text("Select a region..."));
+            $.each(this_country_regions, function (key, value) {
+                $regid.append($("<option></option>").attr("value", value).text(value));
+            });
+
+
         });
 
         $('#countryName').on('keyup.autocomplete', function(){
@@ -675,6 +710,7 @@
                 source: "<?php echo osc_base_url(true); ?>?page=ajax&action=location_regions&country="+$('#countryId').val(),
                 minLength: 2,
                 select: function( event, ui ) {
+                    console.log('hey hey');
                     $('#cityId').val('');
                     $('#city').val('');
                     $('#regionId').val(ui.item.id);
