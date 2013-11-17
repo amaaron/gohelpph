@@ -1,0 +1,11 @@
+#tester {
+display:none;
+}
+
+.block{
+	width: 700px;
+	margin: 20px;
+	padding: 15px;
+	background: #FCC;
+	border: 1px solid #F66;
+}
