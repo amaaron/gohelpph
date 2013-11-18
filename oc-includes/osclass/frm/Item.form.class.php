@@ -666,7 +666,7 @@
         print "country_regions.$regionid = region_array;\n";
     }
     ?>
-        $('#region').empty();
+        //$('#region').empty();
         $('#countryName').attr( "autocomplete", "off" );
         $('#region').attr( "autocomplete", "off" );
         $('#city').attr( "autocomplete", "off" );
