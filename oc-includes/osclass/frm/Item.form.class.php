@@ -666,7 +666,7 @@
         print "country_regions.$regionid = region_array;\n";
     }
     ?>
-        $('#regionId').empty();
+        $('#region').empty();
         $('#countryName').attr( "autocomplete", "off" );
         $('#region').attr( "autocomplete", "off" );
         $('#city').attr( "autocomplete", "off" );
@@ -679,7 +679,7 @@
 
             var this_country_regions = country_regions[cid];
             
-            var $regid = $('#regionId');
+            var $regid = $('#region');
             $regid.empty();
             $regid.append($("<option></option>").attr("value", "").text("Select a region..."));
             $.each(this_country_regions, function (key, value) {

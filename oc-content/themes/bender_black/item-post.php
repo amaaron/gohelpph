@@ -110,7 +110,7 @@
                               <label class="control-label" for="region"><?php _e('Region', 'bender_black'); ?></label>
                               <div class="controls">
                                 <?php //ItemForm::region_text(osc_user()); ?>
-                                <?php ItemForm::region_select(osc_get_regions_from_country('ph')); ?>
+                                <?php ItemForm::region_select(osc_get_regions_from_country('ph'), null, 'region'); ?>
                               </div>
                             </div>
                             <div class="control-group">
