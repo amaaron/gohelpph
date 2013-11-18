@@ -119,7 +119,7 @@
                                 <?php ItemForm::city_text(osc_user()); ?>
                               </div>
                             </div>
-                            <div class="control-group">
+                            <div class="control-group" style="display:none;">
                               <label class="control-label" for="cityArea"><?php _e('City Area', 'bender_black'); ?></label>
                               <div class="controls">
                                 <?php ItemForm::city_area_text(osc_user()); ?>
