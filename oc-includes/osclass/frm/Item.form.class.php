@@ -510,7 +510,7 @@
             return true;
         }
 
-        static public function region_select($regions = null, $item = null, $itemid='regionId') {
+        static public function region_select($regions = null, $item = null, $itemid='regionId', $valfield = 'pk_i_id') {
 
             if($item==null) { $item = osc_item(); };
 
@@ -522,9 +522,12 @@
 
             if( count($regions) >= 1 ) {
                 if( Session::newInstance()->_getForm('regionId') != "" ) {
+                    print "****";
+                    print_r($item);
+                    print "***";
                     $item['fk_i_region_id'] = Session::newInstance()->_getForm('regionId');
                 }
-                parent::generic_select($itemid, $regions, 'pk_i_id', 's_name', __('Select a region...'), (isset($item['fk_i_region_id'])) ? $item['fk_i_region_id'] : null);
+                parent::generic_select($itemid, $regions, $valfield, 's_name', __('Select a region...'), (isset($item['fk_i_region_id'])) ? $item['fk_i_region_id'] : null);
                 return true;
             } else {
                 if( Session::newInstance()->_getForm('region') != "" ) {
